@@ -21,30 +21,16 @@ public:
     Credential(string site, string user, string pass)
         : siteName(site), userName(user), password(pass), timestamp(time(nullptr)) {}
 
-    Credential(const string fileName) {
-        ifstream file(fileName);
-        if (!file) {
-            cout << "Error while reading Credentials\n";
-            return;
-        }
-    
-        string line;
-    
-        getline(file, line);
-        siteName = decryption(line);
-    
-        getline(file, line);
-        userName = decryption(line);
-    
-        getline(file, line);
-        password = decryption(line);
-    
-        getline(file, line);
-        timestamp = static_cast<time_t>(stoll(line));
-    
-        file.close();
-    }
+    Credential(string site, string user, string pass, time_t time)
+        : siteName(site), userName(user), password(pass), timestamp(time) {}
+
+    Credential(const Credential& obj):siteName(obj.siteName),userName(obj.userName)
+                                      ,password(obj.password),timestamp(obj.timestamp){}
+                                      
  
+    Credential operator =(const Credential& obj){
+        return Credential(obj);
+    }
 
 
     friend ostream& operator<<(ostream& os, const Credential& c) {
@@ -52,22 +38,23 @@ public:
            << "User: " << c.userName << "\n"
            << "Password: " << c.password << "\n"
            << "Time: " << c.getTimestampStr() << "\n";
+
         return os;
     }
 
     void writeCredential(const string fileName = "store.txt") {
-    ofstream file(fileName, ios::app);  // no ios::binary
-    if (!file) {
-        cout << "Error while writing credentials\n";
-        return;
-    }
+        ofstream file(fileName, ios::app); 
+        if (!file) {
+            cout << "Error while writing credentials\n";
+            return;
+        }
 
-    file << encryption(siteName) << '\n';
-    file << encryption(userName) << '\n';
-    file << encryption(password) << '\n';
-    file << timestamp << '\n';  // write raw time_t as string
+        file << encryption(siteName) << '\n';
+        file << encryption(userName) << '\n';
+        file << encryption(password) << '\n';
+        file << timestamp << '\n';  // write raw time_t as string
 
-    file.close();
+        file.close();
     }
 
 

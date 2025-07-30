@@ -1,28 +1,47 @@
 #include<iostream>
 #include<string>
-#include"Secure.h"
+#include <unordered_map>
 #include "Credential.h"
+#include "functions.h"
 
 using namespace std;
-const string fileName="store.txt";
 
 int main(){
-    // string password;
-    // cout<<"Enter Password : ";
-    // getline(cin,password);
-    // string encrypted = encryption(password);
-    // WritePassword(encrypted);
-    // cout<<endl<<"Encrypted : "<<encrypted<<endl;
-    // string decrypted = ReadPassword();
-    // decrypted = decryption(decrypted);
-    // cout<<"Decrypted : "<<decrypted<<endl;
+    unordered_map<string,Credential> CredentialManager;
 
-    Credential writeObj("facebook.com", "zohaib123", "Zohaib@facbook");
-    writeObj.writeCredential(fileName);
-    cout<<writeObj<<endl;
-    // Step 2: Read back the written data
-    Credential readObj(fileName);
-    cout << readObj;
+    // int number ;
+    // cout<<"Enter Number : ";
+    // cin>>number;
+    // cin.ignore();
+    // for (int i=0;i<number;i++){
+    //     insertCredential(CredentialManager);
+    // }
+
+    
+   
+
+    // // SaveAll
+    // saveAll(CredentialManager);
+
+    // load from file 
+    loadFromFile(CredentialManager);
+
+
+   // print
+   print(CredentialManager);
+
+
+   cout<<endl;
+
+   // search
+   string site;
+   cout<<"Enter site to search : ";
+   getline(cin,site);
+   cout<<endl;
+   findCredential(CredentialManager,site);
+
 
     return 0;
 }
+
+
