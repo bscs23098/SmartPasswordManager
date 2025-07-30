@@ -77,6 +77,10 @@ string encryption(const string& password) {
 
 // Decryption
 string decryption(const string& encoded) {
+    if (encoded.length() <= 8) {
+        cerr << "Decryption Error: string too short.\n";
+        return "";
+    }
     string decoded = base64Decode(encoded);
     string decrypted = xorEncrypt(decoded, SALT);
     return decrypted.substr(8); // skip the IV
