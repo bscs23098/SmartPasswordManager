@@ -3,60 +3,78 @@
 #include <unordered_map>
 #include "Credential.h"
 #include "functions.h"
+#include <cstdlib>
 
 using namespace std;
 
 int main(){
-    unordered_map<string,Credential> CredentialManager;
+   unordered_map<string, Credential> CredentialManager;
+    int choice;
 
-    // int number ;
-    // cout<<"Enter Number : ";
-    // cin>>number;
-    // cin.ignore();
-    // for (int i=0;i<number;i++){
-    //     insertCredential(CredentialManager);
-    // }
+    loadFromFile(CredentialManager); 
 
-    
-   
+    while (true) {
+        system("cls");  
 
-    // // SaveAll
-    // saveAll(CredentialManager);
+        cout << "=== Password Manager Menu ===\n";
+        cout << "1. Insert Credential(s)\n";
+        cout << "2. View All Credentials\n";
+        cout << "3. Search by Site Name\n";
+        cout << "4. Update Credential\n";
+        cout << "5. Save to File\n";
+        cout << "6. Delete Credential\n";
+        cout << "7. Exit\n";
+        cout << "=============================\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+        cin.ignore();  
 
-    // load from file 
-    loadFromFile(CredentialManager);
+        system("cls");
 
+        switch (choice) {
+            case 1: {
+                int n;
+                cout << "How many credentials to insert? ";
+                cin >> n;
+                cin.ignore();
+                for (int i = 0; i < n; i++) {
+                    insertCredential(CredentialManager);
+                }
+                break;
+            }
 
-   // print
-   print(CredentialManager);
+            case 2:
+                print(CredentialManager);
+                break;
 
+            case 3:
+                findCredential(CredentialManager);
+                break;
 
-   cout<<endl;
+            case 4:
+                updateCredential(CredentialManager);
+                break;
 
-   // search
-//    findCredential(CredentialManager);
+            case 5:
+                saveAll(CredentialManager);
+                cout << "Credentials saved to file.\n";
+                break;
+             case 6:
+                deleteCredential(CredentialManager);
+                break;
 
+            case 7: {
+                cout << "Exiting...\n";
+                return 0;
+            }
+           
+            default:
+                cout << "Invalid option! Try again.\n";
+        }
 
-   //update
-//    updateCredential(CredentialManager);
-
-//    cout<<endl;
-//    cout<<endl;
-   
-//    print(CredentialManager);
-
-
-   cout<<endl;
-
-
-
-   deleteCredential(CredentialManager);
-
-
-
-   cout<<endl;
-   cout<<endl;
-   print(CredentialManager);
+        cout << "\nPress Enter to continue...";
+        cin.get();
+    }
 
     return 0;
 }
