@@ -18,16 +18,19 @@ void print(const unordered_map<string,Credential>& CredentialManager){
 
 void insertCredential(unordered_map<string,Credential>& CredentialManager){
     cout<<"---------------"<<endl;
-        // insert 
     string siteName;
+    cout << "Enter site name: ";
+    getline(cin, siteName);
+    if (CredentialManager.find(siteName) != CredentialManager.end()) {
+        cout << "Credential for '" << siteName << "' already exists.\n";
+        cout << "Use update option from main menu to change it.\n";
+        return;
+    }
     string userName;
     string password;
-
-    cout<<"Site Name : ";
-    getline(cin,siteName);
-    cout<<"User Name : ";
+    cout<<"Enter User Name : ";
     getline(cin,userName);
-    cout<<"Password : ";
+    cout<<"Enter Password : ";
     getline(cin,password);
     CredentialManager.insert({siteName, Credential(siteName, userName, password)});
 }

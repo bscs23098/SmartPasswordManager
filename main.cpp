@@ -10,7 +10,7 @@ using namespace std;
 int main(){
 
    string password;
-   cout << "Enter Password : ";
+   cout << "Enter Master Password : ";
    getline(cin,password);
    if(AuthorizedUSer(password)){
 
@@ -40,13 +40,7 @@ int main(){
 
         switch (choice) {
             case 1: {
-                int n;
-                cout << "How many credentials to insert? ";
-                cin >> n;
-                cin.ignore();
-                for (int i = 0; i < n; i++) {
                     insertCredential(CredentialManager);
-                }
                 break;
             }
 
