@@ -67,5 +67,21 @@ void findCredential(const unordered_map<string, Credential>& CredentialManager, 
         cout << site << " not found 404\n";
     }
 }
+void updateCredential(const unordered_map<string, Credential>& CredentialManager){
+    string site;
+    cout <<"Enter site name to update : ";
+    cin >>site;
+    auto it = CredentialManager.find(site);
+    if (it != CredentialManager.end()) {
+        cout << "Old credentials :  "<<endl;
+        cout << it->second << endl;
+        cout<<"Update Credentials \n";
+        cout<<"Enter site name : ";
+        
+
+    } else {
+        cout << site << " not found 404\n";
+    }
+}
 
 #endif
