@@ -13,7 +13,7 @@ int main(){
    cout << "Enter Master Password : ";
    getline(cin,password);
    if(AuthorizedUSer(password)){
-
+    logActivity("Verficated","Master User");
    unordered_map<string, Credential> CredentialManager;
    int choice;
 
@@ -40,12 +40,13 @@ int main(){
 
         switch (choice) {
             case 1: {
-                    insertCredential(CredentialManager);
+                insertCredential(CredentialManager);
                 break;
             }
 
             case 2:
                 print(CredentialManager);
+                logActivity("Displaying","All Credentials");
                 break;
 
             case 3:
@@ -59,6 +60,7 @@ int main(){
             case 5:
                 saveAll(CredentialManager);
                 cout << "Credentials saved to file.\n";
+                logActivity("Saving","All Credentials");
                 break;
              case 6:
                 deleteCredential(CredentialManager);
@@ -66,11 +68,13 @@ int main(){
 
             case 7: {
                 cout << "Exiting...\n";
+                logActivity("Exiting","");
                 return 0;
             }
            
             default:
                 cout << "Invalid option! Try again.\n";
+                logActivity("Invalid Option","");
         }
 
         cout << "\nPress Enter to continue...";
@@ -79,6 +83,7 @@ int main(){
   }
     else {
         cout <<" Invalid Password Try Again\n";
+        logActivity("Verficated Failed","Master User");
     }
 
     return 0;

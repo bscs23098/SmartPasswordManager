@@ -4,9 +4,28 @@
 #include<string>
 #include <unordered_map>
 #include "Credential.h"
+#include <chrono>
+#include <ctime>
 
 using namespace std;
 const string fileName="store.txt";
+
+
+string getCurrentTime() {
+    time_t now = time(nullptr);
+    char buf[80];
+    strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", localtime(&now));
+    return string(buf);
+}
+
+void logActivity(const string& action, const string& siteName) {
+    ofstream logFile("activity_log.txt", ios::app);
+    if (logFile.is_open()) {
+        logFile << "[" << getCurrentTime() << "] "
+                << action << " - " << siteName << "\n";
+        logFile.close();
+    }
+}
 
 void print(const unordered_map<string,Credential>& CredentialManager){
    for(auto i : CredentialManager){
@@ -26,6 +45,7 @@ void insertCredential(unordered_map<string,Credential>& CredentialManager){
         cout << "Use update option from main menu to change it.\n";
         return;
     }
+    logActivity("Inserting",siteName);    
     string userName;
     string password;
     cout<<"Enter User Name : ";
@@ -68,6 +88,7 @@ void findCredential(const unordered_map<string, Credential>& CredentialManager){
     getline(cin,site);
     auto it = CredentialManager.find(site);
     if (it != CredentialManager.end()) {
+        logActivity("Finding",site);
         cout << it->second << endl;
     } else {
         cout << site << " not found 404\n";
@@ -79,6 +100,7 @@ void updateCredential(unordered_map<string, Credential>& CredentialManager){
     getline(cin,site);
     auto it = CredentialManager.find(site);
     if (it != CredentialManager.end()) {
+        logActivity("Updating",site);
         CredentialManager.erase(it); 
         cout << "Enter new credentials for " << site << ":\n"; 
         insertCredential(CredentialManager);
@@ -103,6 +125,7 @@ void deleteCredential(unordered_map<string, Credential>& CredentialManager) {
 
     auto it = CredentialManager.find(site);
     if (it != CredentialManager.end()) {
+        logActivity("Deletion",site);        
         CredentialManager.erase(it);
         cout << "Credential for '" << site << "' deleted.\n";
         ofstream file(fileName); 
@@ -145,4 +168,7 @@ string loadMasterPassword(const string& masterPassfile = "masterPassword.txt"){
 bool AuthorizedUSer(const string& pass){
     return loadMasterPassword() == pass;
 }
+
+
+
 #endif
