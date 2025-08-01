@@ -147,6 +147,7 @@ void writeMasterPassword(const string& masterPassfile = "masterPassword.txt"){
         cout<<"Error while writing master password\n";
         return;
     }
+    logActivity("Updating", "Master Pass");
     string pass;
     cout<<"Enter Master Password : ";
     getline(cin,pass);
