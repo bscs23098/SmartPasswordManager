@@ -79,7 +79,7 @@ void updateCredential(unordered_map<string, Credential>& CredentialManager){
         CredentialManager.erase(it); 
         cout << "Enter new credentials for " << site << ":\n"; 
         insertCredential(CredentialManager);
-        ofstream file(fileName, ios::app); 
+        ofstream file(fileName); 
         if(!file){
             cout<<"Updated Cannot be Saved in file\n";
 
@@ -92,5 +92,28 @@ void updateCredential(unordered_map<string, Credential>& CredentialManager){
     }
 
 }
+
+void deleteCredential(unordered_map<string, Credential>& CredentialManager) {
+    string site;
+    cout << "Enter site name to delete: ";
+    getline(cin, site);
+
+    auto it = CredentialManager.find(site);
+    if (it != CredentialManager.end()) {
+        CredentialManager.erase(it);
+        cout << "Credential for '" << site << "' deleted.\n";
+        ofstream file(fileName); 
+        if(!file){
+            cout<<"Updated Cannot be Saved in file\n";
+
+        }
+        file.close();
+        saveAll(CredentialManager);
+        cout<<"Updated Saved into file\n";
+    } else {
+        cout << site << " not found 404\n";
+    }
+}
+
 
 #endif

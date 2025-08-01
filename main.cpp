@@ -34,19 +34,29 @@ int main(){
    cout<<endl;
 
    // search
-   findCredential(CredentialManager);
+//    findCredential(CredentialManager);
 
 
    //update
-   updateCredential(CredentialManager);
+//    updateCredential(CredentialManager);
 
 //    cout<<endl;
 //    cout<<endl;
    
-   print(CredentialManager);
+//    print(CredentialManager);
 
 
    cout<<endl;
+
+
+
+   deleteCredential(CredentialManager);
+
+
+
+   cout<<endl;
+   cout<<endl;
+   print(CredentialManager);
 
     return 0;
 }
