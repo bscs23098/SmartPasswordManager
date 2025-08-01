@@ -8,8 +8,14 @@
 using namespace std;
 
 int main(){
+
+   string password;
+   cout << "Enter Password : ";
+   getline(cin,password);
+   if(AuthorizedUSer(password)){
+
    unordered_map<string, Credential> CredentialManager;
-    int choice;
+   int choice;
 
     loadFromFile(CredentialManager); 
 
@@ -17,6 +23,7 @@ int main(){
         system("cls");  
 
         cout << "=== Password Manager Menu ===\n";
+        cout << "0. Update Master Password\n";
         cout << "1. Insert Credential(s)\n";
         cout << "2. View All Credentials\n";
         cout << "3. Search by Site Name\n";
@@ -74,6 +81,10 @@ int main(){
 
         cout << "\nPress Enter to continue...";
         cin.get();
+    }
+  }
+    else {
+        cout <<" Invalid Password Try Again\n";
     }
 
     return 0;

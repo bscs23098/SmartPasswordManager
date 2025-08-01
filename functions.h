@@ -115,5 +115,31 @@ void deleteCredential(unordered_map<string, Credential>& CredentialManager) {
     }
 }
 
+void writeMasterPassword(const string& masterPassfile = "masterPassword.txt"){
+    ofstream file(masterPassfile);
+     if(!file){
+        cout<<"Error while writing master password\n";
+        return;
+    }
+    string pass;
+    cout<<"Enter Master Password : ";
+    getline(cin,pass);
+    file << encryption(pass);
+    file.close();    
+}
 
+string loadMasterPassword(const string& masterPassfile = "masterPassword.txt"){
+    ifstream file(masterPassfile);
+    if(!file){
+        cout<<"Error while reading master password\n";
+        return "Error 404";
+    }
+    string pass;
+    getline(file,pass);
+    file.close();
+    return decryption(pass);
+}
+bool AuthorizedUSer(const string& pass){
+    return loadMasterPassword() == pass;
+}
 #endif
