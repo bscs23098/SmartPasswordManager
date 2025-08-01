@@ -59,29 +59,38 @@ void loadFromFile(unordered_map<string, Credential>& CredentialManager) {
 }
 
 
-void findCredential(const unordered_map<string, Credential>& CredentialManager, const string& site){
-     auto it = CredentialManager.find(site);
+void findCredential(const unordered_map<string, Credential>& CredentialManager){
+    string site;
+    cout <<"Enter site name to update : ";
+    getline(cin,site);
+    auto it = CredentialManager.find(site);
     if (it != CredentialManager.end()) {
         cout << it->second << endl;
     } else {
         cout << site << " not found 404\n";
     }
 }
-void updateCredential(const unordered_map<string, Credential>& CredentialManager){
+void updateCredential(unordered_map<string, Credential>& CredentialManager){
     string site;
     cout <<"Enter site name to update : ";
-    cin >>site;
+    getline(cin,site);
     auto it = CredentialManager.find(site);
     if (it != CredentialManager.end()) {
-        cout << "Old credentials :  "<<endl;
-        cout << it->second << endl;
-        cout<<"Update Credentials \n";
-        cout<<"Enter site name : ";
-        
+        CredentialManager.erase(it); 
+        cout << "Enter new credentials for " << site << ":\n"; 
+        insertCredential(CredentialManager);
+        ofstream file(fileName, ios::app); 
+        if(!file){
+            cout<<"Updated Cannot be Saved in file\n";
 
+        }
+        file.close();
+        saveAll(CredentialManager);
+        cout<<"Updated Saved into file\n";
     } else {
         cout << site << " not found 404\n";
     }
+
 }
 
 #endif

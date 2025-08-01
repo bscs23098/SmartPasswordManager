@@ -34,15 +34,19 @@ int main(){
    cout<<endl;
 
    // search
-   string site;
-   cout<<"Enter site to search : ";
-   getline(cin,site);
-   cout<<endl;
-   findCredential(CredentialManager,site);
+   findCredential(CredentialManager);
 
 
    //update
+   updateCredential(CredentialManager);
+
+//    cout<<endl;
+//    cout<<endl;
    
+   print(CredentialManager);
+
+
+   cout<<endl;
 
     return 0;
 }
