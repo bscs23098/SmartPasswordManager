@@ -1,4 +1,4 @@
-# Smart AI-Powered Password Manager
+# Smart Powered Password Manager
 
 A C++ console application for securely managing your credentials with a master password. This project provides a simple, menu-driven interface to store, update, search, and manage your passwords efficiently.
 
